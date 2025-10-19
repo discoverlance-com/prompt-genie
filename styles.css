@@ -1,0 +1,17 @@
+@import 'https://unpkg.com/open-props';
+@import 'https://unpkg.com/open-props/normalize.min.css';
+@import 'https://unpkg.com/open-props/buttons.min.css';
+@import 'https://unpkg.com/open-props/theme.light.switch.min.css';
+@import 'https://unpkg.com/open-props/theme.dark.switch.min.css';
+
+:root {
+  --font-size-00: 0.6rem;
+}
+
+body {
+  margin: auto;
+  padding: var(--size-2);
+  width: 500px;
+  padding: 10px;
+  font-family: var(--font-humanist);
+}
