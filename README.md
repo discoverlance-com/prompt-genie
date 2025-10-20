@@ -1,57 +1,146 @@
 # PromptGenie
 
-A Chrome extension that provides in-context, on-demand text processing powered by hybrid AI.
+```mermaid
+flowchart TD
+    A[User selects text or opens popup] --> B{Context menu or popup action}
+    B -->|Summarize| C[Summarize Selected Text]
+    B -->|ELI5| D[Explain Like I'm 5]
+    B -->|Whole Page| E[Summarize Whole Page]
+    B -->|Custom Prompt| F[Run Custom Prompt]
+    C & D & E & F --> G{AI Inference}
+    G -->|On-device| H[Chrome Prompt API]
+    G -->|Cloud| I[Firebase Gemini API]
+    H & I --> J[Show result in popup]
+    J --> K[User can copy, close, or run again]
+```
 
-## Overview
+> A Chrome extension for instant, in-context text processing powered by hybrid AI (on-device and cloud). Summarize, simplify, or transform any selected text or webpage with a click.
 
-PromptGenie solves the problem of information overload by allowing users to instantly summarize, simplify, or apply custom transformations to any selected text or webpage without leaving the page. It leverages Chrome's on-device AI for speed and privacy, with seamless fallback to powerful cloud models.
+---
 
-## Key Features
+## Features
 
-### Core Text Processing
+- **Summarize Selected Text**: Right-click context menu to generate concise summaries of highlighted text.
+- **Explain Like I'm 5 (ELI5)**: Instantly simplify complex text into easy-to-understand language.
+- **Whole-Page Summarization**: Summarize entire webpages from the extension popup or context menu.
+- **Custom Prompts**: Create, manage, and use personalized prompts (e.g., "Turn into bullet points", "Translate to professional English").
+- **Dynamic Context Menus**: Context menu updates live as you add or remove prompts.
+- **Responsive UI**: Modern, theme-adaptive popup with loading states and result display.
+- **Hybrid AI**: Uses Chrome's on-device model for privacy and speed, with seamless fallback to Gemini cloud API for advanced tasks.
 
-- **Summarize Selected Text**: Right-click context menu or floating button to generate concise summaries
-- **Explain Like I'm 5 (ELI5)**: Simplify complex text into easy-to-understand language
-- **Whole-Page Summarization**: Summarize entire webpages from the extension popup
+---
 
-### Custom Prompts
+## Prerequisites
 
-- Create and manage personalized prompts (e.g., "Turn into bullet points", "Translate to professional English")
-- Choose inference location:
-  - **Local First** (default): On-device model with cloud fallback
-  - **Cloud Only**: Always use cloud model for complex reasoning
+### 1. Chrome & Prompt API Setup (for on-device inference)
 
-## Technical Stack
+**A. Update Chrome**
 
-- **Chrome Extension APIs**: Context menus, storage, scripting, tabs
-- **AI Processing**: `firebase` SDK
-- **On-Device AI**: Chrome's built-in `summarizer` and `prompt` APIs
-- **Cloud Backend**: Firebase with Gemini Developer API
+- Make sure you're using Chrome v139 or higher.
+- Go to `chrome://settings/help` and update if needed.
 
-## Privacy & Performance
+**B. Enable Prompt API for Gemini Nano Multimodal Input**
 
-- Built-in actions (Summarize, ELI5) use **local-only** inference for guaranteed privacy
-- Custom prompts respect user-defined inference preferences
-- Fast processing with on-device AI, powerful reasoning with cloud fallback
+- Go to: `chrome://flags/#prompt-api-for-gemini-nano-multimodal-input`
+- Set to **Enabled** and restart Chrome.
 
-## Development
+**C. Download the On-Device Model**
 
-### Running this extension
+1. Open Developer Tools > Console.
+2. Run:
+   ```js
+   await LanguageModel.availability();
+   ```
+   - If output is `downloadable`, start download:
+   ```js
+   await LanguageModel.create();
+   ```
+   - To monitor download progress:
+   ```js
+   const session = await LanguageModel.create({
+     monitor(m) {
+       m.addEventListener("downloadprogress", (e) => {
+         console.log(`Downloaded ${e.loaded * 100}%`);
+       });
+     },
+   });
+   ```
+3. Wait until the model is `available` before using the extension for local inference.
 
-1. Clone this repository.
-2. Install the packages by running the command: `npm install`
-3. 🔧 Firebase Setup. Create a `.firebase-config.js` file in the root of the extension with your Firebase project credentials:
+---
+
+## Getting Started
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/discoverlance-com/prompt-genie.git
+cd prompt-genie
+npm install
+```
+
+### 2. Firebase Setup
+
+Create a `.firebase-config.js` file in the root directory with your Firebase project credentials:
 
 ```js
 export const FIREBASE_CONFIG = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_DOMAIN",
   projectId: "YOUR_PROJECT_ID",
-  ...
+  // ...other config
 };
-
 ```
 
-4. Run the command `npm run build` or `npm run build:prod` to build the extension's assets.
+### 3. Build the Extension
 
-5. Load the `dist` directory in Chrome as an unpacked extension.
+```bash
+npm run build
+# or for production
+npm run build:prod
+```
+
+### 4. Load in Chrome
+
+1. Open `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked** and select the `dist` directory
+
+---
+
+## Usage
+
+- **Right-click** any selected text and choose a prompt from the context menu.
+- **Open the popup** to manage custom prompts.
+- **Right-click on the whole page** and click on Summarize whole page to summarize the whole page.
+- **Add/Delete prompts** in the popup; context menu updates instantly.
+- **Results** are shown in a modern, theme-adaptive UI with copy and close actions.
+
+---
+
+## Technical Stack
+
+- **Chrome Extension APIs**: Context menus, storage, scripting, tabs
+- **AI Processing**: Firebase Gemini API, Chrome on-device Prompt API
+- **CSS**: Open Props, modular theme tokens
+- **Bundling**: Webpack
+
+---
+
+## Privacy & Performance
+
+- **Local-only inference** for built-in actions (Summarize, ELI5) for privacy
+- **Custom prompts** respect user-defined inference preferences
+- **Fast** on-device AI, **powerful** cloud fallback
+
+---
+
+## Contributing
+
+Pull requests and issues are welcome! Please open an issue for feature requests or bug reports.
+
+---
+
+## License
+
+MIT
