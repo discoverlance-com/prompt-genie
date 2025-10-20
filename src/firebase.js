@@ -1,5 +1,10 @@
 import { initializeApp, getApp, getApps } from "firebase/app";
-import { getAI, getGenerativeModel, GoogleAIBackend } from "firebase/ai";
+import {
+  getAI,
+  getGenerativeModel,
+  GoogleAIBackend,
+  InferenceMode,
+} from "firebase/ai";
 import { FIREBASE_CONFIG } from "../.firebase-config";
 
 // Initialize Firebase app (prevent multiple initialization)
@@ -12,6 +17,9 @@ if (getApps().length === 0) {
 }
 
 const ai = getAI(app, { backend: new GoogleAIBackend() });
-const model = getGenerativeModel(ai, { model: "gemini-2.5-flash" });
+const model = getGenerativeModel(ai, {
+  model: "gemini-2.5-flash",
+  mode: InferenceMode.PREFER_ON_DEVICE,
+});
 
-export { ai, model };
+export { model };

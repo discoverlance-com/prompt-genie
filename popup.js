@@ -1,4 +1,6 @@
 import "./src/styles/shared.css";
+import DOMPurify from "dompurify";
+import { marked } from "marked";
 
 const defaultPrompts = [
   {
@@ -117,6 +119,61 @@ function renderPrompts(prompts) {
     optionGroup.appendChild(label);
   });
 }
+
+function showSummaryCard(summaryText, loading = false) {
+  let summaryCard = document.querySelector(".summary-card");
+  if (!summaryCard) {
+    const mainContent = document.querySelector(".content");
+    summaryCard = document.createElement("section");
+    summaryCard.className = "summary-card";
+    summaryCard.innerHTML = `
+      <div class="summary-card-header">
+        <span class="summary-card-title">Results</span>
+        <button class="summary-close-btn" title="Close">&times;</button>
+      </div>
+      <div class="summary-card-content"></div>
+      <div class="summary-card-actions">
+        <button class="summary-copy-btn">Copy</button>
+      </div>
+    `;
+    mainContent.prepend(summaryCard);
+  }
+  summaryCard.style.display = "flex";
+
+  const contentDiv = summaryCard.querySelector(".summary-card-content");
+  if (loading) {
+    contentDiv.innerHTML = `<div class="spinner"><div class="spinner-icon"></div></div>`;
+  } else {
+    contentDiv.innerHTML = summaryText;
+  }
+
+  // Close button
+  const closeBtn = summaryCard.querySelector(".summary-close-btn");
+  closeBtn.onclick = () => {
+    window.close();
+  };
+
+  // Copy button
+  const copyBtn = summaryCard.querySelector(".summary-copy-btn");
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(contentDiv.textContent).then(() => {
+      copyBtn.textContent = "Copied!";
+      setTimeout(() => {
+        window.close();
+      }, 2000);
+    });
+  };
+}
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "prompt-loading") {
+    showSummaryCard("", true);
+  }
+  if (message.action === "prompt-response" && message.text) {
+    const sanitizedText = DOMPurify.sanitize(marked.parse(message.text));
+    showSummaryCard(sanitizedText, false);
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   saveDefaultPromptsIfNeeded();
