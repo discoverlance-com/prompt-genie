@@ -1,11 +1,12 @@
 import { initializeApp, getApp, getApps } from "firebase/app";
 import { getAI, getGenerativeModel, GoogleAIBackend } from "firebase/ai";
+import { FIREBASE_CONFIG } from "../.firebase-config";
 
 // Initialize Firebase app (prevent multiple initialization)
 /**@type {import("firebase/app").FirebaseApp} */
 let app;
 if (getApps().length === 0) {
-  app = initializeApp(firebaseConfig);
+  app = initializeApp(FIREBASE_CONFIG);
 } else {
   app = getApp();
 }
