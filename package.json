@@ -2,11 +2,11 @@
   "name": "prompt-genie",
   "version": "1.0.0",
   "description": "A Chrome extension that provides in-context, on-demand text processing powered by hybrid AI.",
-  "main": "index.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
     "build:css": "esbuild ./src/index.css --bundle --minify --outfile=./styles.css",
-    "build:js": "esbuild ./src/index.js --bundle --minify --outfile=./index.js"
+    "build:js": "esbuild ./src/index.js --bundle --minify --outfile=./main.js"
   },
   "repository": {
     "type": "git",
