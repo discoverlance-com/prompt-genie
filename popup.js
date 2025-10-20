@@ -2,14 +2,14 @@ import "./src/styles/shared.css";
 
 const defaultPrompts = [
   {
-    id: "summarize",
+    id: "prompt_genie_summarize",
     title: "Summarize Selected Text",
     description: "Get a quick summary of your selected text",
     isActive: true,
     isDefault: true,
   },
   {
-    id: "eli5",
+    id: "prompt_genie_eli5",
     title: "Explain Like I'm 5 (ELI5)",
     description: "Get a simple explanation that's easy to understand",
     isActive: false,
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
       chrome.storage.local.get(["prompts"], (result) => {
         const prompts = Array.isArray(result.prompts) ? result.prompts : [];
         const newPrompt = {
-          id: `custom_${Date.now()}`,
+          id: `prompt_genie_${Date.now()}`,
           title,
           description,
           isActive: false,
