@@ -9,11 +9,13 @@ PromptGenie solves the problem of information overload by allowing users to inst
 ## Key Features
 
 ### Core Text Processing
+
 - **Summarize Selected Text**: Right-click context menu or floating button to generate concise summaries
 - **Explain Like I'm 5 (ELI5)**: Simplify complex text into easy-to-understand language
 - **Whole-Page Summarization**: Summarize entire webpages from the extension popup
 
 ### Custom Prompts
+
 - Create and manage personalized prompts (e.g., "Turn into bullet points", "Translate to professional English")
 - Choose inference location:
   - **Local First** (default): On-device model with cloud fallback
@@ -32,9 +34,24 @@ PromptGenie solves the problem of information overload by allowing users to inst
 - Custom prompts respect user-defined inference preferences
 - Fast processing with on-device AI, powerful reasoning with cloud fallback
 
-## Depoloyment
+## Development
 
 ### Running this extension
 
 1. Clone this repository.
-2. Load this directory in Chrome as an unpacked extension.
+2. Install the packages by running the command: `npm install`
+3. 🔧 Firebase Setup. Create a `.firebase-config.js` file in the root of the extension with your Firebase project credentials:
+
+```js
+export const FIREBASE_CONFIG = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  ...
+};
+
+```
+
+4. Run the command `npm run build:css` and `npm run build:js` to build the extension's assets if you make any changes. Else you can just proceed to the next step.
+
+5. Load this directory in Chrome as an unpacked extension.

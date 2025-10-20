@@ -1,0 +1,29 @@
+{
+  "name": "prompt-genie",
+  "version": "1.0.0",
+  "description": "A Chrome extension that provides in-context, on-demand text processing powered by hybrid AI.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build:css": "esbuild ./src/index.css --bundle --minify --outfile=./styles.css",
+    "build:js": "esbuild ./src/index.js --bundle --minify --outfile=./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/discoverlance-com/prompt-genie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/discoverlance-com/prompt-genie/issues"
+  },
+  "homepage": "https://github.com/discoverlance-com/prompt-genie#readme",
+  "devDependencies": {
+    "esbuild": "0.25.11"
+  },
+  "dependencies": {
+    "firebase": "12.4.0",
+    "open-props": "1.7.16"
+  }
+}
