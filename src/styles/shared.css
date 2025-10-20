@@ -169,7 +169,7 @@ body {
   color: var(--text-2);
   margin: 0;
   line-height: var(--font-lineheight-2);
-  padding-right: var(--size-4);
+  padding-right: var(--size-6);
 }
 
 /* Custom Prompts Section */

@@ -1,9 +1,8 @@
 import { model } from "./src/firebase.js";
 
-chrome.runtime.onInstalled.addListener(() => {
-  // Remove all old context menus
+// Utility to refresh context menus from current prompts
+function refreshContextMenus() {
   chrome.contextMenus.removeAll(() => {
-    // Load prompts from storage
     chrome.storage.local.get(["prompts"], (result) => {
       const prompts = Array.isArray(result.prompts) ? result.prompts : [];
       prompts.forEach((prompt) => {
@@ -21,6 +20,18 @@ chrome.runtime.onInstalled.addListener(() => {
       });
     });
   });
+}
+
+// setup context menus on install
+chrome.runtime.onInstalled.addListener(() => {
+  refreshContextMenus();
+});
+
+// Listen for changes to prompts and refresh context menus
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === "local" && changes.prompts) {
+    refreshContextMenus();
+  }
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
