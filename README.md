@@ -52,6 +52,6 @@ export const FIREBASE_CONFIG = {
 
 ```
 
-4. Run the command `npm run build:css` and `npm run build:js` to build the extension's assets if you make any changes. Else you can just proceed to the next step.
+4. Run the command `npm run build` or `npm run build:prod` to build the extension's assets.
 
-5. Load this directory in Chrome as an unpacked extension.
+5. Load the `dist` directory in Chrome as an unpacked extension.

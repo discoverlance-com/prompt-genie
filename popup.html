@@ -2,10 +2,62 @@
 <html>
   <head>
     <title>PromptGenie</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h3>PromptGenie</h3>
+    <div class="container">
+      <header class="title">
+        <h1>PromptGenie</h1>
+        <p>
+          Select a prompt below to make it the active prompt that will run when
+          you highlight a text on the page. You can add custom prompts using the
+          form below under "Custom Prompts".
+        </p>
+      </header>
+
+      <main class="content">
+        <!-- Get Started Section -->
+        <section class="section">
+          <h2>Get Started</h2>
+          <form class="option-group"></form>
+        </section>
+
+        <!-- Custom Prompts Section -->
+        <section class="section">
+          <h2>Custom Prompts</h2>
+          <details class="custom-prompt-details">
+            <summary>Click me to add a new prompt</summary>
+            <form class="custom-prompt-form">
+              <div class="form-group">
+                <label for="prompt-title">Title</label>
+                <input
+                  type="text"
+                  id="prompt-title"
+                  name="title"
+                  maxlength="50"
+                  placeholder="Enter prompt title"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="prompt-description">AI Instructions</label>
+                <textarea
+                  id="prompt-description"
+                  name="description"
+                  maxlength="150"
+                  placeholder="Enter instructions for the AI"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">Add Prompt</button>
+            </form>
+          </details>
+        </section>
+      </main>
+    </div>
 
     <script type="module" src="popup.js"></script>
   </body>

@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "A Chrome extension that provides in-context, on-demand text processing powered by hybrid AI.",
   "main": "main.js",
-  "type": "module",
   "scripts": {
-    "build:css": "esbuild ./src/index.css --bundle --minify --outfile=./styles.css",
-    "build:js": "esbuild ./src/index.js --bundle --minify --outfile=./main.js"
+    "build": "cross-env NODE_ENV=development webpack --config webpack.config.js",
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +19,16 @@
   },
   "homepage": "https://github.com/discoverlance-com/prompt-genie#readme",
   "devDependencies": {
-    "esbuild": "0.25.11"
+    "@babel/core": "7.28.4",
+    "@babel/preset-env": "7.28.3",
+    "babel-loader": "10.0.0",
+    "copy-webpack-plugin": "13.0.1",
+    "cross-env": "10.1.0",
+    "css-loader": "7.1.2",
+    "esbuild": "0.25.11",
+    "mini-css-extract-plugin": "2.9.4",
+    "webpack": "5.102.1",
+    "webpack-cli": "6.0.1"
   },
   "dependencies": {
     "firebase": "12.4.0",

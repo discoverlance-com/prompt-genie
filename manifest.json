@@ -3,7 +3,7 @@
   "name": "PromptGenie",
   "version": "1.0",
   "description": "A Chrome extension that provides in-context, on-demand text processing powered by hybrid AI.",
-  "permissions": ["contextMenus", "clipboardWrite"],
+  "permissions": ["contextMenus", "clipboardWrite", "storage"],
   "host_permissions": ["<all_urls>"],
   "minimum_chrome_version": "138",
   "background": {

@@ -1,7 +1,7 @@
 {
   "cssvar.files": [
     "./node_modules/open-props/open-props.min.css",
-    "./src/index.css"
+    "./src/styles/shared.css"
   ],
 
   // Do not ignore node_modules css files, which is ignored by default
