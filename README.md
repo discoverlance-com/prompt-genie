@@ -82,7 +82,22 @@ npm install
 
 ### 2. Firebase Setup
 
-Create a `.firebase-config.js` file in the root directory with your Firebase project credentials:
+If you don't already have a Firebase project:
+
+- Go to [Firebase Console](https://console.firebase.google.com/) and create a new project.
+
+Next, enable **AI Logic**:
+
+- In your Firebase project, click on **AI Logic** in the left sidebar.
+- Click **Get Started** and follow the prompts. You can choose to use the Gemini Developer API and/or enable AI monitoring.
+
+Create a new Firebase app:
+
+- If you created a new app during the AI Logic setup or you already have a firebase app, then proceed to the step to create the firebase config file.
+- In your Firebase project, go to **Project Overview** and click **Add app** (Web, iOS, or Android).
+- Copy the app's configuration object.
+
+Create a `.firebase-config.js` file in the root directory with your Firebase app credentials:
 
 ```js
 export const FIREBASE_CONFIG = {
