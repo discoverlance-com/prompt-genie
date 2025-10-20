@@ -8,6 +8,7 @@ module.exports = {
     main: "./src/index.js",
     background: "./background.js",
     popup: "./popup.js",
+    content: "./src/content.js",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -18,6 +19,7 @@ module.exports = {
       patterns: [
         { from: "manifest.json", to: "manifest.json" },
         { from: "popup.html", to: "popup.html" },
+        { from: "icons", to: "icons" },
       ],
     }),
     new MiniCssExtractPlugin({

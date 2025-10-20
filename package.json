@@ -2,7 +2,7 @@
   "name": "prompt-genie",
   "version": "1.0.0",
   "description": "A Chrome extension that provides in-context, on-demand text processing powered by hybrid AI.",
-  "main": "main.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=development webpack --config webpack.config.js",
     "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js"
