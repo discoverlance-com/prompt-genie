@@ -34,6 +34,50 @@ chrome.storage.onChanged.addListener((changes, area) => {
   }
 });
 
+// Listen for FAB prompt requests from content script
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "run-promptgenie-fab") {
+    const { promptId, promptDescription, selectionText, url, pageTitle } =
+      message;
+    if (!promptId || !selectionText) return;
+
+    chrome.action.openPopup().then(() => {
+      chrome.runtime.sendMessage({ action: "prompt-loading" });
+      let summaryPromise;
+
+      if (promptId === "prompt_genie_summarize") {
+        summaryPromise = summarizeSelectedText({
+          title: pageTitle || "",
+          content: selectionText,
+          url: url || "",
+        });
+      } else if (promptId === "prompt_genie_eli5") {
+        summaryPromise = eli5SelectedText({
+          title: pageTitle || "",
+          content: selectionText,
+          url: url || "",
+        });
+      } else {
+        summaryPromise = runCustomPrompt({
+          title: pageTitle || "",
+          content: selectionText,
+          url: url || "",
+          description: promptDescription,
+        });
+      }
+      Promise.allSettled([summaryPromise]).then(([result]) => {
+        chrome.runtime.sendMessage({
+          action: "prompt-response",
+          text:
+            result.status === "fulfilled"
+              ? result.value
+              : result.reason.message,
+        });
+      });
+    });
+  }
+});
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (tab && tab.id) {
     if (info.menuItemId === "prompt_genie_whole_page") {

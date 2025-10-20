@@ -25,11 +25,9 @@
     - For each custom prompt, the user must provide a **Title** and the **Prompt** itself.
     - Crucially, the user can choose the inference location:
       - **Local First (default):** Use the on-device model if available, otherwise fall back to the cloud.
-      - **Cloud Only:** Always use the cloud model. This is for prompts that need the latest information or more powerful reasoning.
 
 4.  **Inference Logic for POC:**
     - The built-in actions (Summarize, ELI5, Whole-Page Summary) will be hardcoded to **only use local, on-device inference** to guarantee privacy and speed for core features.
-    - User-created prompts will respect the "Local First" or "Cloud Only" setting.
 
 ---
 
@@ -71,7 +69,7 @@
 3.  **Popup UI (`popup.html`, `popup.js`):**
     - This is the user interface for managing settings and custom prompts.
     - It will read from `chrome.storage.sync` to display the list of existing custom prompts.
-    - It will provide a form for adding a new prompt (Title, Prompt text, "Cloud Only" checkbox).
+    - It will provide a form for adding a new prompt (Title, Prompt text).
     - Saving/deleting prompts here will write to `chrome.storage.sync`, which will in turn trigger the background script to update the context menus.
     - This is also where the "Summarize Full Page" button will live.
 
@@ -92,12 +90,12 @@
 
 1.  **Integrate SDK:** Replace the direct API calls in `background.js` with the `firebase/ai` SDK. Configure it with your Firebase project details.
 2.  **Test Hybrid Logic:** Test that the "Summarize" and "ELI5" prompts are correctly routed to the on-device model.
-3.  **Build Settings UI:** Create the `popup.html` with the form to add a custom prompt (Title, Prompt, Cloud Only checkbox). Write the logic in `popup.js` to save this data to `chrome.storage.sync`.
+3.  **Build Settings UI:** Create the `popup.html` with the form to add a custom prompt (Title, Prompt). Write the logic in `popup.js` to save this data to `chrome.storage.sync`.
 4.  **Dynamic Menus:** In `background.js`, read the stored prompts from `chrome.storage.sync` and dynamically add them to the context menu.
 
 **Milestone 4: Full Feature Implementation & Polish (Day 5-7)**
 
-1.  **Implement Cloud-Only Logic:** In `background.js`, when a custom prompt is executed, check its stored setting. If "Cloud Only" is true, instruct the Firebase SDK to use the cloud model.
+1.  **Implement Cloud-Only Logic:** In `background.js`, when a custom prompt is executed, check its stored setting.
 2.  **Whole-Page Summary:** Add the button to the popup UI. When clicked, use `chrome.scripting` to extract the main content of the page and send it to the summarizer function.
 3.  **UI Polish:** Implement the floating action button in the content script and design a more polished UI for displaying results (e.g., a moveable side panel or a clean pop-up).
 4.  **Testing & Bug Fixes:** Test on various websites and refine the user experience.

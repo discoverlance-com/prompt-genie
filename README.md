@@ -20,10 +20,11 @@ flowchart TD
 
 ## Features
 
-- **Summarize Selected Text**: Right-click context menu to generate concise summaries of highlighted text.
+- **Summarize Selected Text**: Right-click context menu or floating action button (FAB) to generate concise summaries of highlighted text.
 - **Explain Like I'm 5 (ELI5)**: Instantly simplify complex text into easy-to-understand language.
 - **Whole-Page Summarization**: Summarize entire webpages from the extension popup or context menu.
 - **Custom Prompts**: Create, manage, and use personalized prompts (e.g., "Turn into bullet points", "Translate to professional English").
+- **Floating Action Button (FAB)**: When you select text, a small button appears above the selection for instant access to the active prompt.
 - **Dynamic Context Menus**: Context menu updates live as you add or remove prompts.
 - **Responsive UI**: Modern, theme-adaptive popup with loading states and result display.
 - **Hybrid AI**: Uses Chrome's on-device model for privacy and speed, with seamless fallback to Gemini cloud API for advanced tasks.
@@ -110,6 +111,7 @@ npm run build:prod
 
 ## Usage
 
+- **Select text** on any page to reveal a floating action button (FAB) above the selection. Click the FAB to run the active prompt instantly.
 - **Right-click** any selected text and choose a prompt from the context menu.
 - **Open the popup** to manage custom prompts.
 - **Right-click on the whole page** and click on Summarize whole page to summarize the whole page.

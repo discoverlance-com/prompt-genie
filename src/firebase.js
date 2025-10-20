@@ -18,7 +18,6 @@ if (getApps().length === 0) {
 
 const ai = getAI(app, { backend: new GoogleAIBackend() });
 const model = getGenerativeModel(ai, {
-  model: "gemini-2.5-flash-lite",
   mode: InferenceMode.PREFER_ON_DEVICE,
 });
 
